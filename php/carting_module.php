@@ -1,48 +1,127 @@
 <?php
 
 interface Icarter {
-    public function properties();
-    public function check_discount();
-    public function pass_total();
+    public function database_connection();
+    public function check_discount(); 
 }
 
 abstract class cart_coupon implements Icarter{
     public function __construct()
     {
-        $this->coupon_input = $_POST["product_coupon"];
-        $this->total_price_holder = $_POST["total_price_holder"];
-        $this->coupons = ["$10DISC","","10%DISC","REJECTED10"];
-        $this->total_price = 78; 
+        $this->mysqli = new mysqli('localhost','root','','lattire');
+        $this->customer_email = "mosesolawale21@gmail.com";
+        
+
+        $customer_email = $this->customer_email;
+
+        $query = " SELECT SUM(product_price) FROM customer_cart 
+                    WHERE customer_email = '$customer_email';
+                ";
+
+        $passQuery = $this->mysqli->query($query,MYSQLI_USE_RESULT);
+        $passAllData = $passQuery->fetch_all(MYSQLI_ASSOC);
+        $total_price = $passAllData[0]["SUM(product_price)"];
+        $this->total_price = $total_price;
+        
+
+        
     }
 
-    public function pass_total(){
-        if($this->total_price > 50){
+    public function database_connection(){
 
-            return $this->total_price = $this->total_price - 10;
-
-        }else if($this->total_price>100){
-            $ten_percent = $this->total_price * 0.1;
-            if ($ten_percent>10){
-                return $this->total_price = $ten_percent;
-            }else{
-                return $this->total_price = $this->total_price - 10;
-            }
-           
-
-        }else if($this->total_price>200){
-
-            return $this->total_price = $this->total_price * 0.1;
-
-        }else if($this->total_price>1000){
-            return $this->total_price = $this->total_price - 10;
+        if (mysqli_connect_errno()) {
+            
+            echo " Connection failed, please try again ";
+        
         }
+
     }
+
+   
 
     public function check_discount(){
+
+        $customer_email = $this->customer_email;
+
+        $query = " SELECT * FROM customer_cart 
+                   WHERE customer_email = '$customer_email';
+                ";
+
+        $passQuery = $this->mysqli->query($query,MYSQLI_USE_RESULT);
+        $passAllData = $passQuery->fetch_all(MYSQLI_ASSOC);
+        
+        try {
+            if ($passAllData) {
+
+                $carted_products = count($passAllData);
+
+                if ($this->total_price > 50 || $this->total_price < 101){
+
+                    if ($carted_products == 1){
+
+                        echo $this->total_price - 10 . " first";
+
+                    }
+                }
+                
+                if ($this->total_price > 100 || $this->total_price < 201) {
+                    if ($carted_products == 2){
+
+                        echo $this->total_price * 10/100 . " second";
+
+                    }
+                }
+                
+                if ($this->total_price > 200 || $this->total_price <1000) {
+
+                    if ($carted_products == 3){
+
+                        $ten_percent = $this->total_price * 10/100;
+                        $ten_dollar = $this->total_price - 10;
+
+                        if($ten_percent > $ten_dollar){
+
+                            echo $ten_percent . " third";
+
+                        }elseif($ten_dollar > $ten_percent){
+
+                            echo $ten_dollar . " fourth";
+
+                        }
+
+                    }
+                }
+                
+                if ($this->total_price > 1000) {
+
+                        $ten_percent = $this->total_price * 10/100;
+                        $ten_dollar = $this->total_price - 10;
+
+                        if($ten_percent > $ten_dollar){
+
+                            echo $ten_percent . " fifth";
+
+                        }elseif($ten_dollar > $ten_percent){
+
+                            echo $ten_dollar . " fifth";
+
+                        }   
+                }
+
+                
+            }else{
+                echo "Fetching failed ";
+                
+            }
+        } catch (Exception $e){
+            echo "Error in Query passed : ".$e;
+        }
+            
         
     }
 }
 
-
+// $coupon = new cart_coupon();
+// $coupon->check_discount();
 
 ?>
