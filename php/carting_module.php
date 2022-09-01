@@ -10,22 +10,24 @@ abstract class cart_coupon implements Icarter{
     public function __construct()
     {
         $this->coupon_input = $_POST["product_coupon"];
-        $this->coupons = ["FIXED10","PERCENT10","MIXED10","REJECTED10"];
+        $this->total_price_holder = $_POST["total_price_holder"];
+        $this->coupons = ["$10DISC","","10%DISC","REJECTED10"];
         $this->total_price = 78; 
     }
 
     public function pass_total(){
-        echo $this->total_price;
-    }
-
-    public function check_discount(){
         if($this->total_price > 50){
 
             return $this->total_price = $this->total_price - 10;
 
         }else if($this->total_price>100){
-
-            return $this->total_price = $this->total_price * 0.1;
+            $ten_percent = $this->total_price * 0.1;
+            if ($ten_percent>10){
+                return $this->total_price = $ten_percent;
+            }else{
+                return $this->total_price = $this->total_price - 10;
+            }
+           
 
         }else if($this->total_price>200){
 
@@ -34,6 +36,10 @@ abstract class cart_coupon implements Icarter{
         }else if($this->total_price>1000){
             return $this->total_price = $this->total_price - 10;
         }
+    }
+
+    public function check_discount(){
+        
     }
 }
 

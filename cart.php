@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <div class="total">
+        <div class="total" name="total_price_holder">
             Total:$78
         </div>
     </section>
