@@ -19,11 +19,12 @@ class render_coupon extends cart_coupon{
 class coupon_processor extends render_coupon implements Icoupon{
     public function __construct()
     {
-        cart_coupon::__construct();
+        render_coupon::__construct();
         
     }
 
     public function run_discount(){
+        echo $this->coupon_code;
         if(!empty($this->coupon_code)){
             if($this->coupon_code == "yq8s98"){
                 $run_cart_coupon = new render_coupon();
@@ -40,8 +41,8 @@ class coupon_processor extends render_coupon implements Icoupon{
     }
 }
 
-// $render = new render_coupon();
-// $render->run_discount();
+$processor = new coupon_processor();
+$processor->run_discount();
 
 
 
