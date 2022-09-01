@@ -54,7 +54,7 @@ abstract class cart_coupon implements Icarter{
 
                     if ($carted_products == 1){
 
-                        echo $this->total_price - 10 . " first";
+                        echo $this->total_price - 10;
 
                     }
                 }
@@ -62,7 +62,7 @@ abstract class cart_coupon implements Icarter{
                 if ($this->total_price > 100 || $this->total_price < 201) {
                     if ($carted_products == 2){
 
-                        echo $this->total_price * 10/100 . " second";
+                        echo $this->total_price * 10/100;
 
                     }
                 }
@@ -76,11 +76,11 @@ abstract class cart_coupon implements Icarter{
 
                         if($ten_percent > $ten_dollar){
 
-                            echo $ten_percent . " third";
+                            echo $ten_percent;
 
                         }elseif($ten_dollar > $ten_percent){
 
-                            echo $ten_dollar . " fourth";
+                            echo $ten_dollar;
 
                         }
 
@@ -94,11 +94,11 @@ abstract class cart_coupon implements Icarter{
 
                         if($ten_percent > $ten_dollar){
 
-                            echo $ten_percent . " fifth";
+                            echo $ten_percent;
 
                         }elseif($ten_dollar > $ten_percent){
 
-                            echo $ten_dollar . " fifth";
+                            echo $ten_dollar;
 
                         }   
                 }
