@@ -24,7 +24,7 @@ class coupon_processor extends render_coupon implements Icoupon{
     }
 
     public function run_discount(){
-        echo $this->coupon_code;
+
         if(!empty($this->coupon_code)){
             if($this->coupon_code == "yq8s98"){
                 $run_cart_coupon = new render_coupon();

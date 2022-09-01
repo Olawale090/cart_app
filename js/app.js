@@ -82,7 +82,7 @@ main_product_loader.prototype = {
 
             xhr.onload = ()=> {
                     if (xhr.status === 200) {
-                        this.total_price.innerHTML = xhr.responseText;
+                        this.total_price.innerHTML = "Total: $" + xhr.responseText;
                         console.log(xhr.responseText);
                     }
             }
