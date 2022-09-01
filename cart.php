@@ -12,7 +12,7 @@
 
     <div class="coupon_sec">
         <div class="notifier">Please enter your coupon for discount </div>
-        <input type="text" name="product_coupon" id="" class="coupon" placeholder="Please enter coupon">
+        <input type="text" name="product_coupon_code" id="" class="coupon" placeholder="Please enter coupon">
         <input type="submit" class="submit_btn" value="Submit">
     </div>
 

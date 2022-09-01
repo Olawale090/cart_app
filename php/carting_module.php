@@ -10,7 +10,6 @@ abstract class cart_coupon implements Icarter{
     {
         $this->mysqli = new mysqli('localhost','root','','lattire');
         $this->customer_email = "mosesolawale21@gmail.com";
-        
 
         $customer_email = $this->customer_email;
 
@@ -23,8 +22,6 @@ abstract class cart_coupon implements Icarter{
         $total_price = $passAllData[0]["SUM(product_price)"];
         $this->total_price = $total_price;
         
-
-        
     }
 
     public function database_connection(){
@@ -36,8 +33,6 @@ abstract class cart_coupon implements Icarter{
         }
 
     }
-
-   
 
     public function check_discount(){
 
@@ -120,8 +115,5 @@ abstract class cart_coupon implements Icarter{
         
     }
 }
-
-// $coupon = new cart_coupon();
-// $coupon->check_discount();
 
 ?>
