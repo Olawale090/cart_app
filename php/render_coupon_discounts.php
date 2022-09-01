@@ -5,24 +5,43 @@ interface Icoupon {
     public function run_discount(); 
 }
 
-class render_coupon extends cart_coupon implements Icoupon{
+class render_coupon extends cart_coupon{
     public function __construct()
     {
         cart_coupon::__construct();
-        $this->coupon_code = mysqli_real_escape_string($this->mysql,$_POST["product_coupon_code"]); 
+        $this->coupon_code = mysqli_real_escape_string($this->mysqli,$_POST["product_coupon_code"]); 
+        
+    }
+
+    
+}
+
+class coupon_processor extends render_coupon implements Icoupon{
+    public function __construct()
+    {
+        cart_coupon::__construct();
         
     }
 
     public function run_discount(){
         if(!empty($this->coupon_code)){
-            $run_discount = new cart_coupon();
-            $run_discount->check_discount();
+            if($this->coupon_code == "yq8s98"){
+                $run_cart_coupon = new render_coupon();
+                $run_cart_coupon->database_connection();
+                $run_cart_coupon->check_discount();
+            }else{
+                echo "Please enter correct code";
+            }
+            
+        }else{
+            echo 'Please enter coupon code';
         }
+
     }
 }
 
-$render = new render_coupon();
-$render->run_discount();
+// $render = new render_coupon();
+// $render->run_discount();
 
 
 
